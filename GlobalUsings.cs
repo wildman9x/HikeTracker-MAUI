@@ -1,0 +1,10 @@
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using HikeTracker.Model;
+global using HikeTracker.ViewModel;
+global using HikeTracker.View;
+global using System.Collections.ObjectModel;
+global using System.ComponentModel;
+global using System.Diagnostics;
+global using System.Runtime.CompilerServices;
+global using System.Text.Json;
