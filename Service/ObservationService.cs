@@ -17,5 +17,17 @@ namespace HikeTracker.Service
             observations = await observationDB.GetObservationsAsync(hikeID);
             return observations;
         }
+
+        public async Task DeleteObservationAsync(Observation observation)
+        {
+            observationDB = new ObservationDB();
+            await observationDB.DeleteObservationAsync(observation);
+        }
+
+        internal Task AddObservationAsync(Observation newObservation)
+        {
+            observationDB = new ObservationDB();
+            return observationDB.SaveObservationAsync(newObservation);
+        }
     }
 }

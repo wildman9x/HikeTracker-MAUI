@@ -13,7 +13,7 @@
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
-    <VerticalStackLayout>
+    <StackLayout>
         <Label Text="{Binding Hike.Name}" FontSize="Large" />
         <Label Text="{Binding Hike.Location}" />
         <Label Text="{Binding Hike.Length, StringFormat='Length: {0} miles'}" />
@@ -26,18 +26,26 @@
 
         
         <Label Text="Observations:" FontAttributes="Bold" />
+        <Button Text="Add" Command="{Binding AddObservationCommand}" />
+        <ScrollView>
         <CollectionView ItemsSource="{Binding Observations}">
     <CollectionView.ItemTemplate>
         <DataTemplate x:DataType="model:Observation">
-            <Frame Margin="10" Padding="10" CornerRadius="10" BackgroundColor="#F0F0F0">
+        
+            <Frame>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ObservationViewModel}}, Path=ShowObservationDetailsCommand}" CommandParameter="{Binding .}" />
+            </Frame.GestureRecognizers>
                 <StackLayout Spacing="5">
                     <Label Text="{Binding Name}" FontAttributes="Bold" />
                     <Label Text="{Binding Date, StringFormat='Date: {0:d}'}" />
                     <Label Text="{Binding Date, StringFormat='Time: {0:t}'}" />
                 </StackLayout>
             </Frame>
+        
         </DataTemplate>
     </CollectionView.ItemTemplate>
 </CollectionView>
-    </VerticalStackLayout>
+    </ScrollView>
+    </StackLayout>
 </ContentPage>

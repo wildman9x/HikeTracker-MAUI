@@ -8,6 +8,15 @@ namespace HikeTracker.ViewModel
         HikeService hikeService;
         public ObservableCollection<Hike> Hikes { get; } = new();
 
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set => SetProperty(ref _searchText, value);
+        }
+
+        
+
         public HikeViewModel(HikeService hikeService)
         {
             this.hikeService = hikeService;
@@ -36,7 +45,42 @@ namespace HikeTracker.ViewModel
             await Shell.Current.GoToAsync(nameof(ObservationPage), true, new Dictionary<string, object> {
                 { "Hike", hike }
             });
-            
+
+        }
+
+        [RelayCommand]
+        // SearchCommand
+        async Task SearchAsync(string SearchText)
+        {
+            Debug.WriteLine("SearchAsync");
+            if (IsBusy)
+                return;
+            try
+            {
+                Debug.WriteLine("Not busy, search for: " + SearchText);
+                IsBusy = true;
+                var hikes = await hikeService.SearchHikesAsync(SearchText);
+                Debug.WriteLine("Done with search" + hikes.Count);
+                if (hikes != null && hikes.Count > 0)
+                {
+                    Hikes.Clear();
+                    foreach (var hike in hikes)
+                    {
+                        Hikes.Add(hike);
+                    }
+                    Debug.WriteLine("Number of Hikes: " + Hikes.Count);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+                IsRefreshing = false;
+            }
         }
 
 
@@ -59,6 +103,7 @@ namespace HikeTracker.ViewModel
                     {
                         Hikes.Add(hike);
                     }
+                    
                 }
             }
             catch (System.Exception ex)

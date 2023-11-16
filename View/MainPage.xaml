@@ -7,16 +7,17 @@
              x:Class="HikeTracker.View.MainPage"
              Title = "{Binding Title}" >
 
-    <Grid
-        ColumnDefinitions="*,*"
-        ColumnSpacing="5"
-        RowDefinitions="*,Auto"
-        RowSpacing="0"
-        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+    
+    
+    <StackLayout>
+    <SearchBar Placeholder="Search hikes..." Text="{Binding SearchText, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding SearchText}" />
         <RefreshView
             Grid.ColumnSpan="2"
             Command="{Binding GetHikesCommand}"
             IsRefreshing="{Binding IsRefreshing}">
+            
+            
+
             <CollectionView 
                 ItemsSource="{Binding Hikes}"
                 SelectionMode="None">
@@ -30,7 +31,7 @@
                                             CommandParameter="{Binding .}"
                                         />
                                     </Frame.GestureRecognizers>
-                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                <Grid Padding="0" ColumnDefinitions="*">
                                     <VerticalStackLayout 
                                         VerticalOptions="Center"
                                         Grid.Column="1"
@@ -45,6 +46,6 @@
                 </CollectionView.ItemTemplate>
              </CollectionView>
         </RefreshView>
-    </Grid>
+    </StackLayout>
 
 </ContentPage>

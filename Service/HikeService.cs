@@ -19,6 +19,11 @@ namespace HikeTracker.Service
             return await _hikeDB.GetHikeAsync(id);
         }
 
+        public async Task<List<Hike>> SearchHikesAsync(string name)
+        {
+            return await _hikeDB.SearchHikesAsync(name);
+        }
+
         public async Task<int> SaveHikeAsync(Hike hike)
         {
             return await _hikeDB.SaveHikeAsync(hike);
