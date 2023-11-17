@@ -13,6 +13,10 @@
         <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
         <mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
     </ContentPage.Behaviors>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Command="{Binding EditHikeCommand}" />
+        <ToolbarItem Text="Delete" Command="{Binding DeleteHikeCommand}" />
+    </ContentPage.ToolbarItems>
     <StackLayout>
         <Label Text="{Binding Hike.Name}" FontSize="Large" />
         <Label Text="{Binding Hike.Location}" />

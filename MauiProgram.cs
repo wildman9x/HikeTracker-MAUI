@@ -18,14 +18,17 @@ namespace HikeTracker
             }).UseMauiCommunityToolkit();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<ObservationPage>();
+            builder.Services.AddSingleton<AddHike>();
             builder.Services.AddSingleton<HikeViewModel>();
             builder.Services.AddSingleton<ObservationViewModel>();
+            builder.Services.AddSingleton<AddHikeViewModel>();
             builder.Services.AddSingleton<HikeService>();
             builder.Services.AddSingleton<ObservationService>();
             builder.Services.AddSingleton<HikeDB>();
             builder.Services.AddSingleton<ObservationDB>();
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<ObservationPage>();
+            builder.Services.AddTransient<AddHike>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

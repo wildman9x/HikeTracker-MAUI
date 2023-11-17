@@ -6,6 +6,7 @@ namespace HikeTracker.ViewModel
     [QueryProperty(nameof(Hike), "Hike")]
     public partial class ObservationViewModel : BaseViewModel
     {
+        HikeService _hikeService;
         ObservationService _observationService;
         public ObservableCollection<Observation> Observations { get; } = new();
 
@@ -20,6 +21,7 @@ namespace HikeTracker.ViewModel
         public ObservationViewModel(ObservationService observationService)
         {
             _observationService = observationService;
+            _hikeService = new HikeService();
             Title = "Details and Observations";
             Observations = new ObservableCollection<Observation>();
             Debug.WriteLine("Constructor HikeID: " + HikeID);
@@ -34,11 +36,65 @@ namespace HikeTracker.ViewModel
 
                 Debug.WriteLine("Appearing HikeID: " + HikeID);
                 await GetObservationsAsync();
+                Hike = await _hikeService.GetHikeAsync(HikeID);
 
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+        }
+
+        [RelayCommand]
+        async Task DeleteHikeAsync()
+        {
+            Debug.WriteLine("DeleteHikeAsync");
+            if (IsBusy)
+                return;
+            try
+            {
+                // Prompt the user to confirm deletion
+                var result = await Shell.Current.DisplayAlert("Delete Hike", $"Are you sure you want to delete {Hike.Name}?", "Yes", "No");
+                if (!result)
+                    return;
+                Debug.WriteLine("Not busy");
+                IsBusy = true;
+                await _hikeService.DeleteHikeAsync(Hike);
+                await Shell.Current.GoToAsync("..", true);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+        async Task EditHikeAsync()
+        {
+            Debug.WriteLine("EditHikeAsync");
+            if (IsBusy)
+                return;
+            try
+            {
+                Debug.WriteLine("Not busy");
+                IsBusy = true;
+                await Shell.Current.GoToAsync(nameof(AddHike), true, new Dictionary<string, object> {
+                { "Hike", Hike }
+            });
+            }
+            catch (System.Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 

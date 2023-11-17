@@ -22,7 +22,6 @@ namespace HikeTracker.ViewModel
             this.hikeService = hikeService;
 
             Title = "Hikes";
-            this.hikeService = hikeService;
             GetHikesAsync();
         }
 
@@ -83,6 +82,23 @@ namespace HikeTracker.ViewModel
             }
         }
 
+        [RelayCommand]
+        async Task Appearing()
+        {
+            Debug.WriteLine("AppearingAsync");
+            await GetHikesAsync();
+        }
+
+        [RelayCommand]
+        async Task AddHikeAsync()
+        {
+            Debug.WriteLine("AddHikeAsync");
+            await Shell.Current.GoToAsync(nameof(AddHike), true, new Dictionary<string, object> {
+                { "Hike", new Hike(){
+                    Date = DateTime.Now
+                } }
+            });
+        }
 
         [RelayCommand]
         async Task GetHikesAsync()

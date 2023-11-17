@@ -7,6 +7,7 @@
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(ObservationPage), typeof(ObservationPage));
+            Routing.RegisterRoute(nameof(AddHike), typeof(AddHike));
         }
     }
 }
