@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:model="clr-namespace:HikeTracker.Model"
-             xmlns:viewModel="clr-namespace:HikeTracker.ViewModel;assembly=HikeTracker"
-             x:DataType="viewModel:AddHikeViewModel"
-             x:Class="HikeTracker.View.AddHike"
-             Title="{Binding Title}">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:HikeTracker.Model"
+    xmlns:viewModel="clr-namespace:HikeTracker.ViewModel;assembly=HikeTracker"
+    x:DataType="viewModel:AddHikeViewModel"
+    x:Class="HikeTracker.View.AddHike"
+    Title="{Binding Title}">
 
-             <ContentPage.Behaviors>
-        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
-        <mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+    <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}"
+            EventName="Appearing" />
+
     </ContentPage.Behaviors>
     <StackLayout>
         <Label Text="Name of Hike:" />
-        <Entry Placeholder="Enter name of hike" x:Name="NameEntry" Text="{Binding Name}" />
+        <Entry Placeholder="Enter name of hike"
+            x:Name="NameEntry"
+            Text="{Binding Name}" />
 
         <Label Text="Location:" />
-        <Entry Placeholder="Enter location" x:Name="LocationEntry" Text="{Binding Location}" />
+        <Entry Placeholder="Enter location"
+            x:Name="LocationEntry"
+            Text="{Binding Location}" />
 
         <Label Text="Date of Hike:" />
-        <DatePicker x:Name="DateEntry" Date="{Binding Date}" />
+        <DatePicker x:Name="DateEntry"
+            Date="{Binding Date}" />
 
         <Label Text="Parking Available:" />
-        <Picker x:Name="ParkingEntry" SelectedItem="{Binding ParkingAvailable}">
+        <Picker x:Name="ParkingEntry"
+            SelectedItem="{Binding ParkingAvailable}">
             <Picker.Items>
                 <x:String>Yes</x:String>
                 <x:String>No</x:String>
@@ -31,10 +38,14 @@
         </Picker>
 
         <Label Text="Length of Hike:" />
-        <Entry Placeholder="Enter length of hike" x:Name="LengthEntry" Keyboard="Numeric" Text="{Binding Length}" />
+        <Entry Placeholder="Enter length of hike"
+            x:Name="LengthEntry"
+            Keyboard="Numeric"
+            Text="{Binding Length}" />
 
         <Label Text="Level of Difficulty:" />
-        <Picker x:Name="DifficultyEntry" SelectedItem="{Binding Difficulty}">
+        <Picker x:Name="DifficultyEntry"
+            SelectedItem="{Binding Difficulty}">
             <Picker.Items>
                 <x:String>Easy</x:String>
                 <x:String>Intermediate</x:String>
@@ -43,10 +54,13 @@
         </Picker>
 
         <Label Text="Description:" />
-        <Editor Placeholder="Enter description" x:Name="DescriptionEntry"  Text="{Binding Description}"/>
+        <Editor Placeholder="Enter description"
+            x:Name="DescriptionEntry"
+            Text="{Binding Description}"/>
 
         <Label Text="Weather:" />
-        <Picker x:Name="WeatherEntry" SelectedItem="{Binding Weather}">
+        <Picker x:Name="WeatherEntry"
+            SelectedItem="{Binding Weather}">
             <Picker.Items>
                 <x:String>Sunny</x:String>
                 <x:String>Cloudy</x:String>
@@ -56,8 +70,10 @@
         </Picker>
 
         <Label Text="Has Water Fountain:" />
-        <Switch x:Name="WaterFountainEntry" IsToggled="{Binding HasWaterFountain}"/>
+        <Switch x:Name="WaterFountainEntry"
+            IsToggled="{Binding HasWaterFountain}"/>
 
-        <Button Text="Save" Command="{Binding SaveHikeCommand}" />
+        <Button Text="Save"
+            Command="{Binding SaveHikeCommand}" />
     </StackLayout>
 </ContentPage>

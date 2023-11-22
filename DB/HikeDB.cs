@@ -100,7 +100,7 @@ namespace HikeTracker.DB
         {
             await Init();
             return await _database.Table<Hike>()
-                .Where(i => i.Name.Contains(searchText) || i.Location.Contains(searchText))
+                .Where(i => i.Name.ToLower().Contains(searchText.ToLower()) || i.Location.ToLower().Contains(searchText.ToLower()))
                 .ToListAsync();
         }
 

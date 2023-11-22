@@ -1,50 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:model="clr-namespace:HikeTracker.Model"
-             xmlns:viewModel="clr-namespace:HikeTracker.ViewModel"
-             x:DataType="viewModel:HikeViewModel"
-             x:Class="HikeTracker.View.MainPage"
-             Title = "{Binding Title}" >
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:model="clr-namespace:HikeTracker.Model"
+    xmlns:viewModel="clr-namespace:HikeTracker.ViewModel"
+    x:DataType="viewModel:HikeViewModel"
+    x:Class="HikeTracker.View.MainPage"
+    
+    Title = "{Binding Title}">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Hike" Command="{Binding AddHikeCommand}" />
+        <ToolbarItem Text="Add Hike"
+            Command="{Binding AddHikeCommand}" />
     </ContentPage.ToolbarItems>
-     <ContentPage.Behaviors>
-        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
-        <mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+    <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}"
+            EventName="Appearing" />
+        <mct:EventToCommandBehavior Command="{Binding DisappearingCommand}"
+            EventName="Disappearing" />
     </ContentPage.Behaviors>
-    
-    <StackLayout>
-    <SearchBar Placeholder="Search hikes..." Text="{Binding SearchText, Mode=TwoWay}" SearchCommand="{Binding SearchCommand}" SearchCommandParameter="{Binding SearchText}" />
 
-        <RefreshView
-            Grid.ColumnSpan="2"
+    <StackLayout>
+        <SearchBar Placeholder="Search hikes..."
+            Text="{Binding SearchText, Mode=TwoWay}"
+            SearchCommand="{Binding SearchCommand}"
+            SearchCommandParameter="{Binding SearchText}" />
+
+        <RefreshView Grid.ColumnSpan="2"
             Command="{Binding GetHikesCommand}"
             IsRefreshing="{Binding IsRefreshing}">
-            
-            
 
-            <CollectionView 
-                ItemsSource="{Binding Hikes}"
+
+
+            <CollectionView ItemsSource="{Binding Hikes}"
                 SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Hike">
-                        <Grid Padding="10" HorizontalOptions="Fill">
-                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
-                            <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:HikeViewModel}}, Path=GoToDetailsCommand}"
-                                            CommandParameter="{Binding .}"
-                                        />
-                                    </Frame.GestureRecognizers>
-                                <Grid Padding="0" ColumnDefinitions="*">
-                                    <VerticalStackLayout 
-                                        VerticalOptions="Center"
+                        <Grid Padding="10"
+                            HorizontalOptions="Fill">
+                            <Frame HeightRequest="125"
+                                Style="{StaticResource CardView}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:HikeViewModel}}, Path=GoToDetailsCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="0"
+                                    ColumnDefinitions="*">
+                                    <VerticalStackLayout VerticalOptions="Center"
                                         Grid.Column="1"
                                         Padding="10">
-                                        <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                        <Label Text="{Binding Name}"
+                                            FontAttributes="Bold" />
                                         <Label Text="{Binding Date, StringFormat='Date: {0:d}'}" />
                                     </VerticalStackLayout>
                                 </Grid>
@@ -52,7 +58,7 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-             </CollectionView>
+            </CollectionView>
         </RefreshView>
     </StackLayout>
 

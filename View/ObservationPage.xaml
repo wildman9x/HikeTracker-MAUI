@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:viewModel="clr-namespace:HikeTracker.ViewModel"
-             x:DataType="viewModel:ObservationViewModel"
-             xmlns:model="clr-namespace:HikeTracker.Model"
-             x:Class="HikeTracker.View.ObservationPage"
-             Title="{Binding Title}"
-             >
-             <ContentPage.Behaviors>
-        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}" EventName="Appearing" />
-        <mct:EventToCommandBehavior Command="{Binding DisappearingCommand}" EventName="Disappearing" />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewModel="clr-namespace:HikeTracker.ViewModel"
+    x:DataType="viewModel:ObservationViewModel"
+    xmlns:model="clr-namespace:HikeTracker.Model"
+    x:Class="HikeTracker.View.ObservationPage"
+    Title="{Binding Title}">
+    <ContentPage.Behaviors>
+        <mct:EventToCommandBehavior Command="{Binding AppearingCommand}"
+            EventName="Appearing" />
+
     </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Edit" Command="{Binding EditHikeCommand}" />
-        <ToolbarItem Text="Delete" Command="{Binding DeleteHikeCommand}" />
+        <ToolbarItem Text="Edit"
+            Command="{Binding EditHikeCommand}" />
+        <ToolbarItem Text="Delete"
+            Command="{Binding DeleteHikeCommand}" />
     </ContentPage.ToolbarItems>
-    <StackLayout>
-        <Label Text="{Binding Hike.Name}" FontSize="Large" />
-        <Label Text="{Binding Hike.Location}" />
-        <Label Text="{Binding Hike.Length, StringFormat='Length: {0} miles'}" />
-        <Label Text="{Binding Hike.Date, StringFormat='Date: {0:d}'}" />
-        <Label Text="{Binding Hike.ParkingAvailable, StringFormat='Parking available: {0}'}" />
-        <Label Text="{Binding Hike.Difficulty, StringFormat='Difficulty: {0}'}" />
-        <Label Text="{Binding Hike.Description, StringFormat='Description: {0}'}" />
-        <Label Text="{Binding Hike.Weather, StringFormat='Weather: {0}'}" />
-        <Label Text="{Binding Hike.HasWaterFountain, StringFormat='Has water fountain: {0}'}" />
+    <ScrollView>
+        <StackLayout>
+            <Label Text="{Binding Hike.Name}"
+                FontSize="Large" />
+            <Label Text="{Binding Hike.Location}" />
+            <Label Text="{Binding Hike.Length, StringFormat='Length: {0} miles'}" />
+            <Label Text="{Binding Hike.Date, StringFormat='Date: {0:d}'}" />
+            <Label Text="{Binding Hike.ParkingAvailable, StringFormat='Parking available: {0}'}" />
+            <Label Text="{Binding Hike.Difficulty, StringFormat='Difficulty: {0}'}" />
+            <Label Text="{Binding Hike.Description, StringFormat='Description: {0}'}" />
+            <Label Text="{Binding Hike.Weather, StringFormat='Weather: {0}'}" />
+            <Label Text="{Binding Hike.HasWaterFountain, StringFormat='Has water fountain: {0}'}" />
 
-        
-        <Label Text="Observations:" FontAttributes="Bold" />
-        <Button Text="Add" Command="{Binding AddObservationCommand}" />
-        <ScrollView>
-        <CollectionView ItemsSource="{Binding Observations}">
-    <CollectionView.ItemTemplate>
-        <DataTemplate x:DataType="model:Observation">
-        
-            <Frame>
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ObservationViewModel}}, Path=ShowObservationDetailsCommand}" CommandParameter="{Binding .}" />
-            </Frame.GestureRecognizers>
-                <StackLayout Spacing="5">
-                    <Label Text="{Binding Name}" FontAttributes="Bold" />
-                    <Label Text="{Binding Date, StringFormat='Date: {0:d}'}" />
-                    <Label Text="{Binding Date, StringFormat='Time: {0:t}'}" />
-                </StackLayout>
-            </Frame>
-        
-        </DataTemplate>
-    </CollectionView.ItemTemplate>
-</CollectionView>
+
+            <Label Text="Observations:"
+                FontAttributes="Bold" />
+            <Button Text="Add"
+                Command="{Binding AddObservationCommand}" />
+
+            <CollectionView ItemsSource="{Binding Observations}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Observation">
+
+                        <Frame>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ObservationViewModel}}, Path=ShowObservationDetailsCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <StackLayout Spacing="5">
+                                <Label Text="{Binding Name}"
+                                    FontAttributes="Bold" />
+                                <Label Text="{Binding Date, StringFormat='Date: {0:d}'}" />
+                                <Label Text="{Binding Date, StringFormat='Time: {0:t}'}" />
+                            </StackLayout>
+                        </Frame>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
     </ScrollView>
-    </StackLayout>
 </ContentPage>
